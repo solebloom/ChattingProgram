@@ -40,7 +40,7 @@ public:
 		ClearDisconnectedSession();
 
 		if (sessionList.size() > 1) {
-			auto message = buffer(session->GetMessageBody(), length);
+			auto message = buffer(&session->GetMessagePacket(), length);
 			for (Session* otherSession : sessionList) {
 				if (otherSession->GetUserIndex() != session->GetUserIndex()) {
 					async_write(otherSession->GetSocket(),
