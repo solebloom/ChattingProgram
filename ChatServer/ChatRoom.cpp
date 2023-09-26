@@ -20,8 +20,12 @@ public:
 		Clear();
 	}
 
+	int GetUserCount() {
+		return static_cast<int>(sessionList.size());
+	}
+
 	void EnterRoom(Session* session) {
-		if (sessionList.size() < MAX_USER_COUNT) {
+		if (GetUserCount() < MAX_USER_COUNT) {
 			session->SetRoomIndex(roomIndex);
 
 			sessionList.insert(session);

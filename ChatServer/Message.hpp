@@ -11,6 +11,7 @@ public:
 //		SERVER_ENTER,	// Client requests entering the server selected
 //		SERVER_EXIT,	// Client requests exiting the server entered
 		ROOM_INFO,		// Server responses info about all of room (room number, current user count, etc.)
+		ROOM_CREATE,	// Client requests creating a chat room
 		ROOM_ENTER,		// Client requests entering the room selected
 		ROOM_EXIT,		// Client requests exiting the room entered
 //		PREV_CHAT,		// Server responses previous sent chats
