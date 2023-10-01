@@ -3,10 +3,10 @@
 //#include <boost/asio.hpp>
 #include <unordered_map>
 #include <atomic>
-#include "ChatReadWriteAttribute.cpp"
+#include "../ChatCommon/ChatReadWriteAttribute.cpp"
 #include "ChatRoom.cpp"
-//#include "Message.hpp"
-//#include "Session.cpp"
+//#include "../ChatCommon/Message.hpp"
+//#include "../ChatCommon/Session.cpp"
 
 //using namespace boost::asio;
 //using namespace boost::system;
@@ -72,7 +72,7 @@ private:
 				return;
 			}
 
-			header.messageType = Message::MessageType::ROOM_INFO;
+			header.messageType = Message::MessageType::ALL_ROOM_INFO;
 			Message::MessageBody body = messagePacket.messageBody;
 			memset(&body.data[0], 0, Message::MESSAGE_BODY_MAX_LENGTH);
 			{

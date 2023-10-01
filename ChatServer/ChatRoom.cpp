@@ -2,9 +2,9 @@
 #include <iostream>
 //#include <boost/asio.hpp>
 #include <unordered_set>
-#include "ChatWriteAttribute.cpp"
-#include "Message.hpp"
-//#include "Session.cpp"
+#include "../ChatCommon/ChatWriteAttribute.cpp"
+#include "../ChatCommon/Message.hpp"
+//#include "../ChatCommon/Session.cpp"
 
 using namespace boost::asio;
 using namespace boost::system;

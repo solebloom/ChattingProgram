@@ -18,33 +18,33 @@
     <ClCompile Include="ChatServer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="CommonUtil.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Main.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Message.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Session.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="ChatReadWriteAttribute.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="ChatRoom.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="ChatWriteAttribute.cpp">
+    <ClCompile Include="..\ChatCommon\ChatReadWriteAttribute.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ChatCommon\ChatWriteAttribute.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ChatCommon\CommonUtil.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ChatCommon\Message.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ChatCommon\Session.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Message.hpp">
+    <ClInclude Include="..\ChatCommon\CommonUtil.hpp">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="CommonUtil.hpp">
+    <ClInclude Include="..\ChatCommon\Message.hpp">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
