@@ -133,13 +133,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\ChatCommon\ChatReadWriteAttribute.cpp" />
+    <ClCompile Include="..\ChatCommon\ChatRoom.cpp" />
     <ClCompile Include="..\ChatCommon\ChatWriteAttribute.cpp" />
     <ClCompile Include="..\ChatCommon\CommonUtil.cpp" />
     <ClCompile Include="..\ChatCommon\Message.cpp" />
     <ClCompile Include="..\ChatCommon\Session.cpp" />
-    <ClCompile Include="ChatRoom.cpp" />
     <ClCompile Include="ChatServer.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="ServerChatRoom.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ChatCommon\CommonUtil.hpp" />

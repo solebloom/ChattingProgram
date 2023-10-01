@@ -21,9 +21,6 @@
     <ClCompile Include="Main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="ChatRoom.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="..\ChatCommon\ChatReadWriteAttribute.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -37,6 +34,12 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="..\ChatCommon\Session.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerChatRoom.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ChatCommon\ChatRoom.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

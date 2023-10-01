@@ -4,7 +4,7 @@
 #include <unordered_map>
 #include <atomic>
 #include "../ChatCommon/ChatReadWriteAttribute.cpp"
-#include "ChatRoom.cpp"
+#include "ServerChatRoom.cpp"
 //#include "../ChatCommon/Message.hpp"
 //#include "../ChatCommon/Session.cpp"
 
@@ -51,11 +51,7 @@ private:
 		);
 	}
 
-	// TODO: Fix it using config file load system or CommonUtil class
-	constexpr static char keyValueSeparator = *const_cast<char*>(":");
-	constexpr static char dataSeparator = *const_cast<char*>(",");
-	void WriteData(Session* session, std::size_t length) {
-		// TODO: Data should be filtered by condition through enum MessageType and processed.
+	void WriteData(Session* session, std::size_t length) override {
 		bool isEnterRoom = session->IsEnteredRoom();
 		int roomIndex = session->GetRoomIndex();
 
@@ -66,7 +62,7 @@ private:
 		case Message::MessageType::CONNECT:
 			// TODO 1-1: If will be added SERVER_INFO type in enum MessageType, this routine will be changed to process SERVER_INFO type.
 			// TODO 1-2: And then, SERVER_ENTER type routine should send ROOM_INFO data.
-			if (session->IsEnteredRoom()) {
+			if (isEnterRoom) {
 				std::cout << "MessageType " << header.messageType << " can't allow sending in the chat room! uid : " << header.userIndex 
 						<< ", roomIndex : " << session->GetRoomIndex() << std::endl;
 				return;
@@ -80,13 +76,13 @@ private:
 				for (auto it = chatRoomMap.begin(); it != chatRoomMap.end(); ++it) {
 					int skipValue = sizeof(it->first);
 					memcpy(&body.data[dataIndex], &it->first, skipValue);
-					body.data[skipValue] = keyValueSeparator;
+					body.data[skipValue] = Message::KEY_VALUE_SEPARATOR;
 				
 					int userCount = it->second->GetUserCount();
 					int sizeofUserCount = sizeof(userCount);
 					memcpy(&body.data[skipValue + 1], &userCount, sizeofUserCount);
 					skipValue += sizeofUserCount + 1;
-					body.data[skipValue] = dataSeparator;
+					body.data[skipValue] = Message::DATA_SEPARATOR;
 				
 					dataIndex += skipValue + 1;
 				}
@@ -103,8 +99,8 @@ private:
 				return;
 			} else {
 				roomIndex = ++lastRoomIndex;
-				ChatRoom* chatRoom = new ChatRoom{roomIndex};
-				auto ret = chatRoomMap.insert(std::unordered_map<int, ChatRoom*>::value_type(roomIndex, chatRoom));
+				ServerChatRoom* chatRoom = new ServerChatRoom{roomIndex};
+				auto ret = chatRoomMap.insert(std::unordered_map<int, ServerChatRoom*>::value_type(roomIndex, chatRoom));
 				if (!ret.second) {
 					// Unexpected behavior! ChatRoom can't be created! this roomIndex is already used!
 					delete chatRoom;
@@ -168,5 +164,5 @@ private:
 	tcp::acceptor acceptor;
 
 	std::atomic<int> lastRoomIndex{0};
-	std::unordered_map<int, ChatRoom*> chatRoomMap;
+	std::unordered_map<int, ServerChatRoom*> chatRoomMap;
 };

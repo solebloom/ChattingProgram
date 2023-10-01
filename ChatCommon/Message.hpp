@@ -29,6 +29,11 @@ public:
 	
 	constexpr static int32_t MESSAGE_BODY_MAX_LENGTH = 1024;
 
+	// TODO: Fix it using config file load system
+	constexpr static char KEY_VALUE_SEPARATOR = *const_cast<char*>(":");
+	// TODO: Fix it using config file load system
+	constexpr static char DATA_SEPARATOR = *const_cast<char*>(",");
+
 	#pragma pack(push, 1)
 	struct MessageBody {
 		int8_t data[MESSAGE_BODY_MAX_LENGTH];
