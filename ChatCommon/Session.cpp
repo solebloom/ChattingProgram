@@ -8,7 +8,7 @@ using namespace boost::asio;
 using namespace boost::system;
 using ip::tcp;
 
-class Session {
+class Session final {
 public:
     Session(tcp::socket&& socket)
         : socket(std::move(socket)), roomIndex(INITIAL_INDEX), userIndex(INITIAL_INDEX), message(new Message()) {

@@ -26,12 +26,11 @@ public:
 
 	void EnterRoom(Session* session) {
 		if (GetUserCount() < MAX_USER_COUNT) {
-			session->SetRoomIndex(roomIndex);
-
 			sessionList.insert(session);
+
+			allowEnteringRoom(session);
 		} else {
-			// TODO: Entrance Deny Notification should be sent unicast.
-			//		 EnterRoom function's return value will be changed to bool or EnterRoom function will be processed that notification.
+			denyEnteringRoom(session);
 		}
 	}
 	void LeaveRoom(Session* session) {
@@ -47,6 +46,8 @@ public:
 	}
 
 protected:
+	virtual void allowEnteringRoom(Session* session) = 0;
+	virtual void denyEnteringRoom(Session* session) = 0;
 	virtual void ProcessWritingData(Session* session, std::size_t length) = 0;
 	
 	void ClearDisconnectedSession() {

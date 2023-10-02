@@ -8,7 +8,7 @@ using namespace boost::asio;
 using namespace boost::system;
 using ip::tcp;
 
-class ServerChatRoom : public ChatRoom {
+class ServerChatRoom final : public ChatRoom {
 public:
 	ServerChatRoom(int roomIndex) : ChatRoom(roomIndex) {
 
@@ -19,6 +19,13 @@ public:
 	}
 
 protected:
+	void allowEnteringRoom(Session* session) final {
+		session->SetRoomIndex(roomIndex);
+	}
+	void denyEnteringRoom(Session* session) final {
+		// TODO: Entrance Deny Notification should be sent unicast.
+		//		 EnterRoom function's return value will be changed to bool or EnterRoom function will be processed that notification.
+	}
 	void ProcessWritingData(Session* session, std::size_t length) final {
 		if (sessionList.size() > 1) {
 			auto messagePacket = session->GetMessagePacket();
