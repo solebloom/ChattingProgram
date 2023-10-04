@@ -4,8 +4,6 @@
 
 class SpinLock : private boost::noncopyable {
 public:
-    SpinLock();
-
     void lock();
     void unlock();
 
