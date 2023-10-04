@@ -61,6 +61,7 @@ protected:
 		#ifdef USE_SPIN_LOCK
 		std::lock_guard<SpinLock> lock(spinLock);
 		#endif
+		sessionCount -= static_cast<int>(disconnectedSessionList.size());
 		for (Session* disconnectedSession : disconnectedSessionList) {
 			sessionList.unsafe_erase(disconnectedSession);
 			delete disconnectedSession;
