@@ -2,7 +2,6 @@
 #include <atomic>
 #include <thread>
 #include "../CommonUtil.hpp"
-#include "Lock.hpp"
 
 class CLHLock {
 public:
