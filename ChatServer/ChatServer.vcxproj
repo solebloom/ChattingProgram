@@ -138,6 +138,7 @@
     <ClCompile Include="..\ChatCommon\CommonUtil.cpp" />
     <ClCompile Include="..\ChatCommon\Message.cpp" />
     <ClCompile Include="..\ChatCommon\Session.cpp" />
+    <ClCompile Include="..\ChatCommon\SpinLock.cpp" />
     <ClCompile Include="ChatServer.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="ServerChatRoom.cpp" />
@@ -145,6 +146,7 @@
   <ItemGroup>
     <ClInclude Include="..\ChatCommon\CommonUtil.hpp" />
     <ClInclude Include="..\ChatCommon\Message.hpp" />
+    <ClInclude Include="..\ChatCommon\SpinLock.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

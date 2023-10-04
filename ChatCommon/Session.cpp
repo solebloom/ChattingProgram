@@ -10,13 +10,13 @@ using ip::tcp;
 
 class Session final {
 public:
-    Session(tcp::socket&& socket)
-        : socket(std::move(socket)), roomIndex(INITIAL_INDEX), userIndex(INITIAL_INDEX), message(new Message()) {
+    Session(tcp::socket&& socket, time_t joinTime)
+        : socket(std::move(socket)), joinTime(joinTime), roomIndex(INITIAL_INDEX), userIndex(INITIAL_INDEX), message(new Message()) {
 
     }
     // Move constructor
     Session(Session&& other) noexcept
-        : socket(std::move(other.socket)), roomIndex(other.roomIndex), userIndex(other.userIndex), userName(other.userName), message(other.message) {
+        : socket(std::move(other.socket)), roomIndex(other.roomIndex), userIndex(other.userIndex), userName(other.userName), joinTime(other.joinTime), message(other.message) {
 
     }
     // Move assignment operator
@@ -26,6 +26,7 @@ public:
             roomIndex = other.roomIndex;
             userIndex = other.userIndex;
             userName = other.userName;
+            joinTime = other.joinTime;
             message = other.message;
         }
         return *this;
@@ -79,12 +80,12 @@ public:
 
     //Supports hash function (because of unordered_set)
     size_t operator()(const Session& session) const {
-        // Alternative Case => return std::hash<size_t>()((static_cast<size_t>(session.userIndex) << 32L) + static_cast<size_t>(session.roomIndex));
-        return std::hash<int>()(CommonUtil::CantorPairing(session.userIndex, session.roomIndex));
+        // Alternative case => return std::hash<time_t>()(CommonUtil::CantorPairing(static_cast<time_t>(session.userIndex), static_cast<time_t>(session.roomIndex), session.joinTime));
+        return std::hash<time_t>()(CommonUtil::CantorPairing((static_cast<time_t>(session.userIndex) << 32L) + static_cast<time_t>(session.roomIndex), session.joinTime));
     }
     //Supports operator== function (because of unordered_set)
     bool operator==(const Session& other) const {
-        return userIndex == other.userIndex && roomIndex == other.roomIndex;
+        return userIndex == other.userIndex && roomIndex == other.roomIndex && joinTime == other.joinTime;
     }
 
 private:
@@ -94,6 +95,8 @@ private:
     int roomIndex;
     int userIndex;
     std::string userName;
+
+    time_t joinTime;
 
     Message* message;
 };

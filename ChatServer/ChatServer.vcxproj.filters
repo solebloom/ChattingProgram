@@ -42,12 +42,18 @@
     <ClCompile Include="..\ChatCommon\ChatRoom.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="..\ChatCommon\SpinLock.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ChatCommon\CommonUtil.hpp">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="..\ChatCommon\Message.hpp">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ChatCommon\SpinLock.hpp">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

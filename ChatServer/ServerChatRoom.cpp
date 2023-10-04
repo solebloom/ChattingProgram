@@ -8,6 +8,8 @@ using namespace boost::asio;
 using namespace boost::system;
 using ip::tcp;
 
+#define USE_SPIN_LOCK
+
 class ServerChatRoom final : public ChatRoom {
 public:
 	ServerChatRoom(int roomIndex) : ChatRoom(roomIndex) {
@@ -19,10 +21,13 @@ public:
 	}
 
 protected:
-	void allowEnteringRoom(Session* session) final {
+	void AllowEnteringRoom(Session* session) final {
 		session->SetRoomIndex(roomIndex);
 	}
-	void denyEnteringRoom(Session* session) final {
+	void DenyEnteringRoom(Session* session) final {
+		// If client is denied, session count is also decremeced.
+		--sessionCount;
+
 		// TODO: Entrance Deny Notification should be sent unicast.
 		//		 EnterRoom function's return value will be changed to bool or EnterRoom function will be processed that notification.
 	}
@@ -38,8 +43,7 @@ protected:
 							if (ec.failed()) {
 								if (ec == boost::asio::error::eof || ec == boost::asio::error::connection_reset) {
 									disconnectedSessionList.insert(otherSession);
-								}
-								else {
+								} else {
 									std::cout << "WriteData Error " << ec << " : " << ec.message() << std::endl;
 								}
 							}

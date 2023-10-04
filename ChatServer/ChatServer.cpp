@@ -3,11 +3,13 @@
 //#include <boost/asio.hpp>
 #include <unordered_map>
 #include <atomic>
+#include <chrono>
 #include "../ChatCommon/ChatReadWriteAttribute.cpp"
 #include "ServerChatRoom.cpp"
 //#include "../ChatCommon/Message.hpp"
 //#include "../ChatCommon/Session.cpp"
 
+using namespace std::chrono;
 //using namespace boost::asio;
 //using namespace boost::system;
 //using ip::tcp;
@@ -30,7 +32,7 @@ private:
 			[this, &io_context](error_code ec, tcp::socket socket) {
 				if (!ec.failed()) {
 					std::cout << "클라이언트가 연결되었습니다." << std::endl;
-					ReadData(new Session(std::move(socket)));
+					ReadData(new Session(std::move(socket), system_clock::to_time_t(system_clock::now())));
 				} else {
 					std::cout << "클라이언트가 연결에 실패했습니다." << std::endl;
 				}
