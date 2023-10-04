@@ -5,7 +5,7 @@
 #include <unordered_set>
 #include "ChatWriteAttribute.cpp"
 #include "Message.hpp"
-#include "SpinLock.hpp"
+#include "SpinLock/CLHLock.hpp"
 //#include "Session.cpp"
 
 using namespace boost::asio;
@@ -44,11 +44,11 @@ public:
 	}
 
 	virtual void WriteData(Session* session, std::size_t length) final {
+#ifdef USE_SPIN_LOCK
+		std::lock_guard<CLHLock> lock(spinLock);
+#endif
 		ClearDisconnectedSession();
 
-		#ifdef USE_SPIN_LOCK
-		std::lock_guard<SpinLock> lock(spinLock);
-		#endif
 		ProcessWritingData(session, length);
 	}
 
@@ -58,9 +58,6 @@ protected:
 	virtual void ProcessWritingData(Session* session, std::size_t length) = 0;
 	
 	void ClearDisconnectedSession() {
-		#ifdef USE_SPIN_LOCK
-		std::lock_guard<SpinLock> lock(spinLock);
-		#endif
 		for (Session* disconnectedSession : disconnectedSessionList) {
 			sessionList.unsafe_erase(disconnectedSession);
 			delete disconnectedSession;
@@ -77,7 +74,7 @@ protected:
 		sessionList.clear();
 	}
 
-	SpinLock spinLock;
+	CLHLock spinLock{};
 
 	int roomIndex;
 	// TODO: Fix it using config file load system.

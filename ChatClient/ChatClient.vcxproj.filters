@@ -36,10 +36,13 @@
     <ClCompile Include="Main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="..\ChatCommon\SpinLock.cpp">
+    <ClCompile Include="ClientChatRoom.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="ClientChatRoom.cpp">
+    <ClCompile Include="..\ChatCommon\SpinLock\BackOffSpinLock.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ChatCommon\SpinLock\CLHLock.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -50,7 +53,13 @@
     <ClInclude Include="..\ChatCommon\Message.hpp">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="..\ChatCommon\SpinLock.hpp">
+    <ClInclude Include="..\ChatCommon\SpinLock\BackOffSpinLock.hpp">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ChatCommon\SpinLock\CLHLock.hpp">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ChatCommon\SpinLock\Lock.hpp">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
