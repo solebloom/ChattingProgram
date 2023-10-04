@@ -16,7 +16,7 @@ using ip::tcp;
 
 class ChatRoom abstract : virtual public ChatWriteAttribute {
 public:
-	ChatRoom(int roomIndex) : roomIndex(roomIndex), sessionCount(0) {
+	ChatRoom(int roomIndex) : roomIndex(roomIndex) {
 		
 	}
 
@@ -25,11 +25,11 @@ public:
 	}
 
 	int GetUserCount() {
-		return sessionCount;
+		return static_cast<int>(sessionList.size());
 	}
 
 	void EnterRoom(Session* session) {
-		if (++sessionCount < MAX_USER_COUNT) {
+		if (GetUserCount() < MAX_USER_COUNT) {
 			sessionList.insert(session);
 
 			AllowEnteringRoom(session);
@@ -61,7 +61,6 @@ protected:
 		#ifdef USE_SPIN_LOCK
 		std::lock_guard<SpinLock> lock(spinLock);
 		#endif
-		sessionCount -= static_cast<int>(disconnectedSessionList.size());
 		for (Session* disconnectedSession : disconnectedSessionList) {
 			sessionList.unsafe_erase(disconnectedSession);
 			delete disconnectedSession;
@@ -72,7 +71,6 @@ protected:
 	void Clear() {
 		ClearDisconnectedSession();
 
-		sessionCount -= static_cast<int>(sessionList.size());
 		for (Session* session : sessionList) {
 			delete session;
 		}
@@ -84,7 +82,6 @@ protected:
 	int roomIndex;
 	// TODO: Fix it using config file load system.
 	constexpr static int MAX_USER_COUNT = 100;
-	std::atomic<int> sessionCount;
 	concurrency::concurrent_unordered_set<Session*> sessionList;
 	std::unordered_set<Session*> disconnectedSessionList;
 };

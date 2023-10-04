@@ -25,9 +25,6 @@ protected:
 		session->SetRoomIndex(roomIndex);
 	}
 	void DenyEnteringRoom(Session* session) final {
-		// If client is denied, session count is also decremeced.
-		--sessionCount;
-
 		// TODO: Entrance Deny Notification should be sent unicast.
 		//		 EnterRoom function's return value will be changed to bool or EnterRoom function will be processed that notification.
 	}
