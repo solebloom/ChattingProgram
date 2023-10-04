@@ -8,7 +8,7 @@ BackOffSpinLock::BackOffSpinLock() noexcept : minDelay(1), maxDelay(64), current
 void BackOffSpinLock::lock() noexcept {
     while (!try_lock()) {
         // Sleep for a random duration (exponential back-off)
-#if defined _HAS_CXX17 || defined _WIN32 || defined __APPLE__
+#ifdef _PLATFORM_INDEPENDENCE_AT_THREAD
         CommonUtil::sleepThread(std::chrono::milliseconds(getRandomDelay(currentDelay)));
 #else
         CommonUtil::sleepThread(struct timespec { 0, getRandomDelay(currentDelay) * 1000000 });

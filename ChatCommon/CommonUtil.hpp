@@ -3,6 +3,7 @@
 #include <random>
 #if defined _HAS_CXX17 || defined _WIN32 || defined __APPLE__
 #include <thread>
+#define _PLATFORM_INDEPENDENCE_AT_THREAD
 #else
 #include <sched.h>	// Supports sched_yield()
 #include <time.h>	// Supports nanosleep(struct timespec)
@@ -15,14 +16,14 @@ public:
 	}
 
 	const static void yieldThread() {
-#if defined _HAS_CXX17 || defined _WIN32 || defined __APPLE__
+#ifdef _PLATFORM_INDEPENDENCE_AT_THREAD
 		std::this_thread::yield();
 #else
 		sched_yield();
 #endif
 	}
 
-#if defined _HAS_CXX17 || defined _WIN32 || defined __APPLE__
+#ifdef _PLATFORM_INDEPENDENCE_AT_THREAD
 	const static void sleepThread(std::chrono::milliseconds ms) {
 		std::this_thread::sleep_for(ms);
 #else
