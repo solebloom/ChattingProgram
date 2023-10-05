@@ -13,7 +13,7 @@ public:
 private:
     int getRandomDelay(int currentDelay) noexcept;
     
-    std::atomic_flag lockFlag{ ATOMIC_FLAG_INIT };
+    std::atomic_flag lockFlag{};
     const int minDelay;
     const int maxDelay;
     int currentDelay;

@@ -12,7 +12,7 @@ public:
 private:
 #if defined _HAS_CXX20 && _HAS_CXX20 > 0
 #define _USE_ATOMIC_FLAG
-    std::atomic_flag lockFlag{ ATOMIC_FLAG_INIT };
+    std::atomic_flag lockFlag{};
 #else
     std::atomic<bool> lockFlag{ false };
 #endif
