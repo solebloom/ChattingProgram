@@ -45,6 +45,9 @@
     <ClCompile Include="..\ChatCommon\SpinLock\CLHLock.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="ChatClient.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ChatCommon\CommonUtil.hpp">
