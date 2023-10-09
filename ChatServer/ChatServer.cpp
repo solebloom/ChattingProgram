@@ -1,6 +1,8 @@
 #pragma once
 //#include <iostream>
 //#include <boost/asio.hpp>
+#include <boost/bind/bind.hpp>
+#include <signal.h>
 #include <unordered_map>
 #include <atomic>
 #include <chrono>
@@ -18,7 +20,15 @@ class ChatServer : public ChatReadWriteAttribute {
 public:
 	ChatServer(io_context& io_context, ip::port_type port)
 		: io_context(io_context),
-		acceptor(io_context, tcp::endpoint(tcp::v4(), port)) {
+		acceptor(io_context, tcp::endpoint(tcp::v4(), port)),
+		signals(io_context) {
+		signals.add(SIGINT);
+		signals.add(SIGTERM);
+#ifdef SIGQUIT
+		signals.add(SIGQUIT);
+#endif
+		signals.async_wait(boost::bind(&ChatServer::Clear, this));
+
 		AcceptClient(io_context);
 	}
 
@@ -164,6 +174,7 @@ private:
 
 	io_context& io_context;
 	tcp::acceptor acceptor;
+	signal_set signals;
 
 	std::atomic<int> lastRoomIndex{0};
 	std::unordered_map<int, ServerChatRoom*> chatRoomMap;
