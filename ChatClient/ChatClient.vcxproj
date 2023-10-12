@@ -136,6 +136,8 @@
     <ClCompile Include="..\ChatCommon\ChatWriteAttribute.cpp" />
     <ClCompile Include="..\ChatCommon\CommonUtil.cpp" />
     <ClCompile Include="..\ChatCommon\Message.cpp" />
+    <ClCompile Include="..\ChatCommon\RoomInfo.cpp" />
+    <ClCompile Include="..\ChatCommon\RoomInfoBuilder.cpp" />
     <ClCompile Include="..\ChatCommon\Session.cpp" />
     <ClCompile Include="..\ChatCommon\SpinLock\BackOffSpinLock.cpp" />
     <ClCompile Include="..\ChatCommon\SpinLock\CLHLock.cpp" />

@@ -48,6 +48,12 @@
     <ClCompile Include="ChatClient.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="..\ChatCommon\RoomInfo.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ChatCommon\RoomInfoBuilder.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ChatCommon\CommonUtil.hpp">
